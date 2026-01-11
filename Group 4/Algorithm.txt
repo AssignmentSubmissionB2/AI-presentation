@@ -1,0 +1,36 @@
+
+Title: Solving Cryptarithmetic Using Recursive Backtracking
+
+Problem Description:
+Cryptarithmetic puzzles replace digits with letters in arithmetic equations. The goal is to assign a unique digit (0-9) to each letter such that the equation holds true and no two letters have the same digit. Leading letters cannot be zero.
+
+Approach:
+This problem is solved using a recursive backtracking algorithm, which is a depth-first search technique commonly used in AI.
+
+Steps:
+1. Extract all unique letters from the puzzle.
+2. Assign digits to letters one by one recursively.
+3. Ensure:
+	- No two letters share the same digit.
+	- Leading letters are not assigned zero.
+4. After assigning all letters, check if the arithmetic equation is satisfied.
+5. If not satisfied, backtracking and try another digit.
+
+Constraints:
+•	Uniqueness Constraint
+Each letter must be assigned a different digit. No two letters can share the same value.
+•	Digit Range Constraint
+All digits must be between 0 and 9.
+•	Leading Zero Constraint
+A number cannot begin with zero. Therefore, leading letters (such as S in SEND or M in MORE) cannot be assigned the digit 0.
+•	Arithmetic Constraint
+The arithmetic operation (addition, subtraction, or multiplication) must be mathematically correct.
+•	Carry Constraint
+Carry-over values from one column to the next must be handled correctly.
+
+
+Why Backtracking?
+Backtracking systematically explores all possible combinations while cutting invalid solutions early, making it efficient for constraint-based problems.
+
+This approach simulates how an AI agent searches through a problem space to find a valid solution.
+

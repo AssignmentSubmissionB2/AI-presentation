@@ -1,0 +1,276 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #00ff41;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1100px;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    color: #ff0040;
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-shadow: 3px 3px 0px #000, 6px 6px 0px rgba(255, 0, 64, 0.3);
+    letter-spacing: 2px;
+}
+
+.game-container {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.left-panel {
+    flex: 1;
+    min-width: 300px;
+}
+
+.controls {
+    background: rgba(0, 0, 0, 0.6);
+    border: 3px solid #00ff41;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+}
+
+.control-group {
+    margin-bottom: 20px;
+}
+
+.control-group:last-child {
+    margin-bottom: 0;
+}
+
+.control-group h3 {
+    font-size: 10px;
+    margin-bottom: 15px;
+    color: #00ff41;
+    text-align: center;
+}
+
+.button-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+button {
+    background: linear-gradient(180deg, #444 0%, #222 100%);
+    color: #fff;
+    border: 2px solid #666;
+    padding: 12px 20px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 5px;
+    box-shadow: 0 4px 0 #111, 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative;
+    top: 0;
+}
+
+button:hover:not(:disabled) {
+    background: linear-gradient(180deg, #555 0%, #333 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #111, 0 0 15px rgba(0, 255, 65, 0.5);
+}
+
+button:active:not(:disabled) {
+    top: 4px;
+    box-shadow: 0 0 0 #111, 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+button.primary {
+    background: linear-gradient(180deg, #ff0040 0%, #cc0033 100%);
+    border-color: #ff0040;
+    color: #fff;
+}
+
+button.primary:hover:not(:disabled) {
+    background: linear-gradient(180deg, #ff3366 0%, #ff0040 100%);
+    box-shadow: 0 6px 0 #660019, 0 0 15px rgba(255, 0, 64, 0.7);
+}
+
+button.algo-btn {
+    min-width: 100px;
+}
+
+button.active {
+    border-color: #00ff41;
+    box-shadow: 0 4px 0 #111, 0 0 20px rgba(0, 255, 65, 0.8);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.metrics {
+    background: rgba(0, 0, 0, 0.8);
+    border: 3px solid #00ff41;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 9px;
+    line-height: 2;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+}
+
+.metrics p {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.metrics .label {
+    color: #00ff41;
+}
+
+.metrics .value {
+    color: #fff;
+    text-align: right;
+}
+
+.board-wrapper {
+    flex: 0 0 auto;
+}
+
+#board {
+    position: relative;
+    width: 360px;
+    height: 450px;
+    background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
+    border: 4px solid #00ff41;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.5), inset 0 0 50px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.tile {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: #fff;
+    border-radius: 8px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), inset 0 -2px 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.1s;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.tile:hover {
+    filter: brightness(1.2);
+}
+
+.color-1 { background: linear-gradient(135deg, #ff0040 0%, #cc0033 100%); }
+.color-2 { background: linear-gradient(135deg, #00b8ff 0%, #0088cc 100%); }
+.color-3 { background: linear-gradient(135deg, #00ff88 0%, #00cc66 100%); }
+.color-4 { background: linear-gradient(135deg, #ffaa00 0%, #cc8800 100%); }
+.color-5 { background: linear-gradient(135deg, #aa00ff 0%, #8800cc 100%); }
+.color-6 { background: linear-gradient(135deg, #ffff00 0%, #cccc00 100%); color: #000; }
+.color-7 { background: linear-gradient(135deg, #00ffff 0%, #00cccc 100%); }
+.color-8 { background: linear-gradient(135deg, #ff00ff 0%, #cc00cc 100%); }
+.color-9 { background: linear-gradient(135deg, #88ff00 0%, #66cc00 100%); }
+.color-10 { background: linear-gradient(135deg, #ff6600 0%, #cc5200 100%); }
+.color-11 { background: linear-gradient(135deg, #6600ff 0%, #5200cc 100%); }
+.color-12 { background: linear-gradient(135deg, #ff0088 0%, #cc0066 100%); }
+
+.move-display {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 10px;
+    color: #00ff41;
+    min-height: 30px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid #00ff41;
+    border-radius: 5px;
+}
+
+.error {
+    color: #ff0040;
+}
+
+.speed-control {
+    margin-top: 10px;
+}
+
+.speed-control label {
+    display: block;
+    text-align: center;
+    font-size: 8px;
+    margin-bottom: 5px;
+    color: #00ff41;
+}
+
+.speed-control input[type="range"] {
+    width: 100%;
+    height: 6px;
+    background: rgba(0, 255, 65, 0.2);
+    border-radius: 3px;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.speed-control input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #00ff41;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+.speed-control input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #00ff41;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+    border: none;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 14px;
+    }
+    
+    button {
+        font-size: 7px;
+        padding: 10px 15px;
+    }
+    
+    .metrics {
+        font-size: 8px;
+    }
+    
+    #board {
+        transform: scale(0.85);
+    }
+}

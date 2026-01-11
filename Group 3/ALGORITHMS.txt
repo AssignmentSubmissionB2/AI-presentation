@@ -1,0 +1,166 @@
+================================================================================
+                    KLOTSKI PUZZLE SOLVER - ALGORITHMS
+================================================================================
+
+Project: Klotski Puzzle Solver using BFS and A* Search
+20232265 Pawa Esther
+
+                              1. INTRODUCTION
+
+
+This document describes the algorithms used to solve the classic Klotski 
+puzzle (also known as Hua Rong Dao or the Red donkeY Puzzle). The implementation compares two search 
+algorithms: Breadth-First Search (BFS) and A* Search.
+
+The Klotski puzzle is a sliding block puzzle where the goal is to move a 
+2x2 red block from the top of a 5x4 grid to a target position at the bottom
+center by sliding blocks horizontally or vertically.
+
+
+                          2. PROBLEM DEFINITION
+================================================================================
+PUZZLE CONFIGURATION:
+---------------------
+Grid Size: 5 rows x 4 columns (20 total cells)
+
+Blocks:
+  - 1 large block (2x2) - RED BLOCK (goal block)
+  - 1 vertical block (1x2) on the right
+  - 4 horizontal blocks (2x1)
+  - 1 vertical block (1x2) on the left
+  - 2 small blocks (1x1)
+  - 2 empty spaces
+
+INITIAL STATE:
+  [1][1][2][2]
+  [1][1][2][2]
+  [3][3][4][4]
+  [5][6][6][7]
+  [5][8][ ][ ]
+
+  Legend:
+    1 = Red block (2x2)
+    2 = Vertical block (1x2)
+    3,4 = Horizontal blocks (2x1)
+    5 = Vertical block (1x2)
+    6 = Horizontal block (2x1)
+    7,8 = Small blocks (1x1)
+    [ ] = Empty spaces
+
+GOAL STATE:
+  Block 1 (red block) must be at position: row 3, column 1
+
+VALID MOVES:
+  - Blocks can slide UP, DOWN, LEFT, or RIGHT
+  - Blocks cannot overlap
+  - Blocks must stay within grid boundaries
+  - Only moves into empty adjacent spaces are allowed
+
+================================================================================
+                    3. STATE SPACE REPRESENTATION
+================================================================================
+
+STATE STRUCTURE:
+----------------
+Each state consists of:
+  1. Board Matrix: 5x4 grid with block IDs
+  2. Block List: List of Block objects with:
+     - id: Unique identifier
+     - row: Top-left row position
+     - col: Top-left column position
+     - width: Block width (1 or 2)
+     - height: Block height (1 or 2)
+  3. Parent: Reference to previous state (for path reconstruction)
+  4. Move: Description of move that created this state
+  5. Depth: Number of moves from initial state
+
+STATE HASHING:
+--------------
+States are hashed based on board configuration using tuple of tuples:
+  hash(state) = hash(tuple(tuple(row) for row in board))
+
+This enables O(1) duplicate detection using Python sets/dictionaries.
+
+STATE SPACE SIZE:
+-----------------
+The Klotski puzzle has a large state space:
+  - Theoretical upper bound: Millions of possible configurations
+  - Reachable states: Hundreds of thousands
+  - Optimal solution depth: 56 moves for this configuration
+
+
+                  4. BREADTH-FIRST SEARCH (BFS) ALGORITHM
+
+
+ALGORITHM DESCRIPTION:
+----------------------
+BFS explores the state space level by level, guaranteeing the shortest path
+solution. It uses a queue (FIFO) to maintain the frontier of unexplored states.
+
+PSEUDOCODE:
+-----------
+function BFS(initial_state):
+    queue ← empty queue
+    visited ← empty set
+    enqueue(queue, initial_state)
+    add(visited, initial_state)
+    
+    while queue is not empty:
+        current ← dequeue(queue)
+        
+        if current is goal:
+            return reconstruct_path(current)
+        
+        for each neighbor in get_neighbors(current):
+            if neighbor not in visited:
+                add(visited, neighbor)
+                neighbor.parent ← current
+                enqueue(queue, neighbor)
+    
+    return no solution found
+
+
+
+                      5. A* SEARCH ALGORITHM
+
+
+ALGORITHM DESCRIPTION:
+----------------------
+A* is an informed search algorithm that uses a heuristic function to guide
+the search toward the goal more efficiently than uninformed algorithms like BFS.
+
+It maintains a priority queue ordered by f(n) = g(n) + h(n), where:
+  - g(n) = actual cost from start to node n (number of moves)
+  - h(n) = estimated cost from n to goal (heuristic)
+  - f(n) = estimated total cost of path through n
+
+PSEUDOCODE:
+-----------
+function A_Star(initial_state):
+    open_set ← priority queue ordered by f-score
+    g_score ← {initial_state: 0}
+    f_score ← g_score[initial_state] + heuristic(initial_state)
+    add(open_set, (f_score, initial_state))
+    
+    while open_set is not empty:
+        current ← state with lowest f-score from open_set
+        
+        if current is goal:
+            return reconstruct_path(current)
+        
+        for each neighbor in get_neighbors(current):
+            tentative_g ← g_score[current] + 1
+            
+            if neighbor not in g_score or tentative_g < g_score[neighbor]:
+                g_score[neighbor] ← tentative_g
+                f_score ← tentative_g + heuristic(neighbor)
+                neighbor.parent ← current
+                add(open_set, (f_score, neighbor))
+    
+    return no solution found
+
+DATA STRUCTURE:
+---------------
+  - Priority Queue: heapq (min-heap) - O(log n) operations
+  - g_score Dictionary: Python dict - O(1) lookups
+  - Counter: For tie-breaking in priority queue

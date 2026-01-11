@@ -1,0 +1,50 @@
+The 15 Puzzle Problem
+1. Problem Description
+The 15 Puzzle is problem consisting of a 4×4 grid with 15 numbered tiles and one empty space. The tiles can be moved by sliding a tile into the empty space. The aim is to reach a predefined goal configuration from a given initial configuration.
+
+2. Goal of the Problem
+To arrange the tiles in ascending numerical order (1–15) with the empty space located at the bottom-right corner of the grid.
+
+3. Constraints
+	1.	The puzzle contains 15 tiles and 1 empty space.
+	2.	Only one tile can be moved at a time.
+	3.	A tile can move only into the empty space.
+	4.	Allowed moves are Up, Down, Left, and Right.
+	5.	Diagonal moves are not allowed.
+	6.	Each move has a uniform cost of 1.
+	7.	The puzzle must always remain in a valid 4×4 configuration.
+
+4. Problem Representation
+State Representation
+A state is represented as a one-dimensional array of 16 elements, where:
+	•	Numbers 1–15 represent tiles
+	•	0 represents the empty space
+Example:
+
+(1, 2, 3, 4,
+ 5, 6, 7, 8,
+ 9, 10, 11, 12,
+ 13, 0, 14, 15)
+
+5. State Space Formulation
+The 15-Puzzle can be formulated as:
+SS = (S, A, Result, Cost)
+	•	S (States): All possible configurations of the puzzle
+	•	A (Actions): {Up, Down, Left, Right}
+	•	Result(S, a): New state after applying action a to state S
+	•	Cost(S, a): Each action has a cost of 1
+
+6. Solution Algorithm
+Algorithm: Solve the 15-Puzzle
+	1.	Start.
+	2.	Define the initial state and the goal state.
+	3.	Insert the initial state into the frontier.
+	4.	Initialize an empty explored set.
+	5.	While the frontier is not empty:
+	1.	Remove a state from the frontier.
+	2.	If the state satisfies the goal test, output the solution path and stop.
+	3.	Add the state to the explored set.
+	4.	Generate all valid successor states by moving the empty space.
+	5.	Add unvisited successor states to the frontier.
+	6.	If the frontier becomes empty without reaching the goal, report failure.
+	7.	Stop.

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Donkey Puzzle Solver</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>THE RED DONKEY PUZZLE </h1>
+        
+        <div class="game-container">
+            <div class="left-panel">
+                <div class="controls">
+                    <div class="control-group">
+                        <h3>SELECT ALGORITHM</h3>
+                        <div class="button-row">
+                            <button class="primary algo-btn" id="bfsBtn" onclick="runAlgorithm('bfs')">BFS</button>
+                           
+                            <button class="primary algo-btn" id="astarBtn" onclick="runAlgorithm('astar')">A*</button>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <h3>PLAYBACK CONTROLS</h3>
+                        <div class="button-row">
+                            <button id="autoplayBtn" onclick="toggleAutoplay()" disabled>▶ AUTOPLAY</button>
+                            <button onclick="resetAnimation()" disabled id="resetBtn">⟲ RESET</button>
+                        </div>
+                        <div class="button-row" style="margin-top: 10px;">
+                            <button onclick="previousMove()" disabled id="prevBtn">◄ PREV</button>
+                            <button onclick="nextMove()" disabled id="nextBtn">NEXT ►</button>
+                        </div>
+                        
+                        <div class="speed-control">
+                            <label for="speedSlider">ANIMATION SPEED</label>
+                            <input type="range" id="speedSlider" min="100" max="1000" value="600" step="100" oninput="updateSpeed(this.value)">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metrics">
+                    <p><span class="label">ALGORITHM:</span> <span class="value" id="algorithm">-</span></p>
+                    <p><span class="label">MOVES:</span> <span class="value" id="moves">0</span></p>
+                    <p><span class="label">CURRENT:</span> <span class="value" id="currentMove">0/0</span></p>
+                    <p><span class="label">STATES:</span> <span class="value" id="states">0</span></p>
+                    <p><span class="label">MAX SPACE:</span> <span class="value" id="maxSpace">0</span></p>
+                    <p><span class="label">BRANCHING:</span> <span class="value" id="branching">0.00</span></p>
+                    <p><span class="label">TIME:</span> <span class="value" id="runtime">0.000s</span></p>
+                    <p><span class="label">TIME ℂ:</span> <span class="value" id="timeComplex">-</span></p>
+                    <p><span class="label">SPACE ℂ:</span> <span class="value" id="spaceComplex">-</span></p>
+                </div>
+                
+                <div class="move-display" id="moveDisplay">
+                    Select an algorithm to begin
+                </div>
+            </div>
+            
+            <div class="board-wrapper">
+                <div id="board"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="animation.js" ></script>
+</body>
+</html>
