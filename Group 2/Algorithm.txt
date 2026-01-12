@@ -1,0 +1,45 @@
+ITERATIVE ALGORITHM [[TIME COMPLEXITY: O(2^n) ; SPACE COMPLEXITY: O(1)]]
+
+    total_moves = (2^n) - 1
+   
+    IF n % 2 IS 0 THEN
+        SWAP destination AND auxiliary
+    END IF
+
+    FOR i FROM 1 TO total_moves DO
+        IF i % 3 IS 1 THEN
+            COMPARE_AND_MOVE(source, destination)
+        ELSE IF i % 3 IS 2 THEN
+            COMPARE_AND_MOVE(source, auxiliary)
+        ELSE IF i % 3 IS 0 THEN
+            COMPARE_AND_MOVE(auxiliary, destination)
+        END IF
+    END FOR
+END PROCEDURE
+
+PROCEDURE COMPARE_AND_MOVE(peg1, peg2)
+    IF peg1 is empty THEN
+        Move top disk from peg2 to peg1
+    ELSE IF peg2 is empty THEN
+        Move top disk from peg1 to peg2
+    ELSE IF top disk of peg1 < top disk of peg2 THEN
+        Move top disk from peg1 to peg2
+    ELSE
+        Move top disk from peg2 to peg1
+    END IF
+END PROCEDURE
+
+RECURSIVE ALGORITHM [[TIME COMPLEXITY: O(2^n) ; SPACE COMPLEXITY: O(1)]] 
+
+PROCEDURE TowerOfHanoi(n, source, destination, auxiliary)
+    IF n IS 1 THEN
+        PRINT "Move disk 1 from" + source + "to" + destination
+        RETURN
+    END IF
+
+    TowerOfHanoi(n - 1, source, auxiliary, destination)
+   
+    PRINT "Move disk" + n + "from" + source + "to" + destination
+   
+    TowerOfHanoi(n - 1, auxiliary, destination, source)
+END PROCEDURE
