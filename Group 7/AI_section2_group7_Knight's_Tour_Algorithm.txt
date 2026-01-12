@@ -1,0 +1,25 @@
+
+Knight's Tour Solution Algorithm on a 5 by 5 Board(Using Recursion and Backtracking)
+
+
+
+Step 1: Define all the possible moves a knight can make (a knight can make up to a maximum of 8 moves)
+
+step 2: Set the position of the knight on the board and make it's initial square the top left conner one [origin is will be (0,0)].
+
+step 3a: Check to see if a square is safe to move to.
+
+	step 3b: A square is safe to move to if its position on the x-axis is less than 5(let's call '5' n)
+	step 3c: And its position on the y-axis is less than 5
+	step 3d: And its position on the x-axis is greater than or equal to 0
+	step 3e: And its position on the y-axis is greater than or equal to 0
+	step 3f: And the square hasn't been visited yet
+
+step 4: Hop the knight to a safe square on the chess board from its origin in the conner of the board and number that square (number of initial square is 0), each square the knight visits including the initial or home square is a step (25 steps means the knight's tour was successful ) 
+
+step 5: After each hop to a new square check if steps is equal to 25, if not continue 
+
+step 6: If a particular knight move leads to a dead end where there are no more safe squares and steps isn't equal to 25, backtrack to the previous square and take a different path
+
+step 7: Repeat the backtracking and searching until all squares have been visited (steps equal to 25), meaning a legitimate knight's tour has been found       
+	 
